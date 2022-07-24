@@ -26,7 +26,23 @@ some of commands that i used
  
  jq -r ".root_token" cluster-keys.json
  
+lets go inside the vault and put secrets and policy
  kubectl exec --stdin=true --tty=true vault-0 -- /bin/sh
+ 1- vault login
+ 2- vault secrets enable -path=secret kv-v2
+ 3- vault kv get secret/webapp/config
+now for auth 
+ 4- vault auth enable kubernetes
+ 5- vault write auth/kubernetes/config \
+    token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+    kubernetes_host=https://${KUBERNETES_PORT_443_TCP_ADDR}:443 \
+    kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+ 6- vault write auth/kubernetes/role/myapp \
+    bound_service_account_names=app \
+    bound_service_account_namespaces=demo \
+    policies=app \
+    ttl=1h
+ 7- vault kv put secret/helloworld username=foobaruser password=foobarbazpass
  
  kubectl apply --filename deployment-01-webapp.yml
  
