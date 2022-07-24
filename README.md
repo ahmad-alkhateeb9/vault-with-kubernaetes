@@ -1,1 +1,1 @@
-# vault-with-kubernaetes
+some of commands that i used
