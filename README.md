@@ -1,11 +1,23 @@
 some of commands that i used
  
+ npm init -y
+ 
+ npm install express
+ 
+ node app.js
+ 
+ docker build -t my-image .
+ 
+ docker tag my-image:latest ahmadoosh99/vault-try:v1
+ 
+ docker push ahmadoosh99/vault-try:v1
+ 
  helm install vault hashicorp1/vault --values helm-vault-raft-values.yml                                                                              
  
  kubectl get all                                                                                                               
  
- kubectl exec vault-0 -- vault operator init     -key-shares=1     -key-threshold=1     -format=json > cluster-keys.json                                                                        
- 
+ kubectl exec vault-0 -- vault operator init     -key-shares=1     -key-threshold=1     -format=json > cluster-keys.json                                 
+
  kubectl get all                                                                                                                       
  
  cat cluster-keys.json 
